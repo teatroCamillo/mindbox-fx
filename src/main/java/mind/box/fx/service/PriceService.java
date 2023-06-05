@@ -25,9 +25,11 @@ public class PriceService implements Message {
     private final TreeMap<Long, PriceDTO> priceDTOMap = new TreeMap<>();
     private static final String TIMESTAMP_PATTERN = "dd-MM-yyyy HH:mm:ss:SSS";
     private final BigDecimal COMMISSION = new BigDecimal("0.001");
+    private final String PRICE_NOT_FOUND = "Price not found";
 
     /**
      * A messaging system.
+     * Customize for different results.
      */
     @PostConstruct
     public void init() {
@@ -38,7 +40,7 @@ public class PriceService implements Message {
     }
 
     public PriceDTO getLastPrice(){
-        if(priceDTOMap.size() == 0) throw new PriceNotFoundException();
+        if(priceDTOMap.size() == 0) throw new PriceNotFoundException(PRICE_NOT_FOUND);
         return priceDTOMap.lastEntry().getValue();
     }
 

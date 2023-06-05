@@ -32,6 +32,7 @@ class PriceControllerTest {
     private PriceService priceService;
 
     private PriceDTO priceDTO;
+    private final String PRICE_NOT_FOUND = "Price not found";
 
     @BeforeEach
     void setUp(){
@@ -54,7 +55,7 @@ class PriceControllerTest {
 
     @Test
     void Given_EndpointGetPrice_When_IsCalled_Then_ReturnNotFound() throws Exception {
-        given(priceService.getLastPrice()).willThrow(new PriceNotFoundException());
+        given(priceService.getLastPrice()).willThrow(new PriceNotFoundException(PRICE_NOT_FOUND));
         mockMvc
                 .perform(get("/getLastPrice"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
